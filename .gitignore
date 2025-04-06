@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # Firebase Service Account
-firebaseAdmin.ts
+/src/lib/serviceAccountKey.json
