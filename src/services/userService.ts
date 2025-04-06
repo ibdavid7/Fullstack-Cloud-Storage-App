@@ -15,7 +15,8 @@ export const fetchUserPlanAndLimit = async (userId: string) => {
   let error = null;
 
   try {
-    const docRef = doc(database, "users", userId);
+    // const docRef = doc(database, "users", userId);
+    const docRef = doc(database, "users", "example-sub");
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

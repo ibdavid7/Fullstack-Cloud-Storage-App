@@ -11,7 +11,14 @@ type Props = {
 };
 
 const LockerPage = async ({ searchParams }: Props) => {
-  const { userId } = auth();
+  // const { userId } = auth();
+
+  // console.log('userId', userId);
+
+  const { userId } = {userId: "example-sub"}; // Mocked userId for testing
+
+
+  console.log("searchParams", searchParams);
 
   if (searchParams.q) {
     const { data, error } = await fetchFilesWithSubfolders(userId!);
@@ -22,6 +29,9 @@ const LockerPage = async ({ searchParams }: Props) => {
   
   const { data, error } = await fetchFiles(userId!);
   return <DataView data={data} error={error} />;
+  console.log("data", data);
+  console.log("error", error);
+  return ("hello world")
 };
 
 export default LockerPage;

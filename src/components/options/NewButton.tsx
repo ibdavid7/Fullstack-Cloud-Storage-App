@@ -21,7 +21,7 @@ import {
 import { Button } from "../ui/button";
 import UploadDialog from "./UploadDialog";
 import { useToast } from "../ui/use-toast";
-import { rootStorage } from "@/lib/firebase";
+import { rootStorage, storage } from "@/lib/firebase";
 import formatFileSize from "@/utils/formatFileSize";
 import DialogWithInput from "../dialogs/DialogWithInput";
 import calculateTotalSize from "@/utils/calculateTotalSize";
@@ -58,7 +58,9 @@ const NewButton = () => {
 
       const files = event.target.files;
       const totalSize = calculateTotalSize(files);
-      const { remainingSpace } = await fetchUserRemainingSpace(userId);
+      // const { remainingSpace } = await fetchUserRemainingSpace(userId);
+
+      const remainingSpace = 1000000000; // 1 GB
 
       if (remainingSpace < totalSize)
         return toast({

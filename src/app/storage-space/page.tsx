@@ -10,7 +10,8 @@ import SpaceView from "@/components/spaceView";
 import { fetchFilesWithSubfolders } from "@/services/fileService";
 
 const StorageSpacePage = async () => {
-  const { userId } = auth();
+  // const { userId } = auth();
+  const { userId } = { userId: "example-sub" }; // Mocked userId for testing
 
   const { data, error } = await fetchFilesWithSubfolders(userId!);
   const { data: userPlan, error: planError } = await fetchUserPlanAndLimit(

@@ -10,17 +10,24 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 import { database, storage } from "@/lib/firebase";
 import { checkIsStarred, removeStar } from "./starService";
+import { executeRequest } from "@/lib/refreshFirebaseToken";
 
 export const fetchFiles = async (path: string) => {
   const data: FileType[] = [];
   let error = null;
 
   try {
-    const folderRef = ref(storage, path);
-    const listRef = await listAll(folderRef);
+    const folderRef = ref(storage, `private/${path}`);
+
+    // const listRef = await listAll(folderRef);
+    const listRef = await executeRequest(() => listAll(folderRef));
 
     const folders = listRef.prefixes;
     const files = listRef.items;
+
+    console.log("triggered");
+    console.log("files", files);
+    console.log("folders", folders);
 
     for (let i = 0; i < folders.length; i++) {
       data.push({
@@ -122,7 +129,9 @@ export const fetchStarredFiles = async (userId: string) => {
     for (let i = 0; i < starredPaths.length; i++) {
       const starredRef = ref(storage, starredPaths[i]);
 
-      const { name, size, contentType, updated, fullPath } = await getMetadata(starredRef);
+      const { name, size, contentType, updated, fullPath } = await getMetadata(
+        starredRef
+      );
 
       if (name !== ".ghostfile") {
         const downloadUrl = await getDownloadURL(starredRef);
@@ -151,8 +160,7 @@ export const deleteFile = async (path: string) => {
   try {
     const { data: starredData } = await checkIsStarred(path);
 
-    if(starredData)
-    await removeStar(starredData.id);
+    if (starredData) await removeStar(starredData.id);
 
     const fileRef = ref(storage, path);
     await deleteObject(fileRef);
