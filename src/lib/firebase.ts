@@ -15,7 +15,7 @@ import { getAuth, signInWithCustomToken } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAh6wFlYULtQJEX3qX9YEVjys7hNAmaAIM",
+  apiKey: "",
   authDomain: "storage-project-42068.firebaseapp.com",
   projectId: "storage-project-42068",
   storageBucket: "storage-project-42068.firebasestorage.app",
